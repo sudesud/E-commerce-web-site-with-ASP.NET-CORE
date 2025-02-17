@@ -1,0 +1,47 @@
+﻿@model List<Bitik.Models.Product>
+<link rel="stylesheet" href="~/css/General.css">
+<section>
+    <h2 class="section-title">Popüler Ürünlerden Seçtik</h2>
+    <div class="categories">
+        <!-- Ürün 1 -->
+        @foreach (var item in Model.Take(8))
+        {
+            <div class="category" id="@item.ProductId">
+
+                <img src="~/Urunler/@item.ImageUrl" alt="Ürün 1">
+                <h3>@item.ProductName</h3>
+                <p class="desc">@item.Description</p>
+                <p class="price">Fiyat:@item.Price</p>
+                <div class="buttons">
+                    <a href="@Url.Action("ProductDetail", "Home")/@item.ProductId" class="view-products">Ürün Detaylarını Gör</a>
+                    <a href="/Cart/Add/@item.ProductId" class="add-to-cart">Sepete Ekle</a>
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+
+</section>
+<script>
+    // "Sepete Ekle" butonuna tıklama olayı
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    addToCartButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Sayfanın yeniden yüklenmesini engelle
+            const productId = button.href.split('/').pop(); // URL'den ürün ID'sini alıyoruz
+
+            // Doğrudan Türkçe karakterler ile alert mesajı gösteriliyor
+            alert('Ürün sepete eklendi!');
+
+            // Sepete ekleme işlemi simüle ediliyor (form gönderme işlemi)
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/Cart/Add/' + productId;
+            document.body.appendChild(form);
+            form.submit();
+        });
+    });
+</script>

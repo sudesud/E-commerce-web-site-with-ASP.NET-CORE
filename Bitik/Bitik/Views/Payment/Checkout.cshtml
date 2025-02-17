@@ -1,0 +1,50 @@
+﻿@model Bitik.Dto.CheckoutViewModel
+<link rel="stylesheet" href="~/css/Checkout.css" />
+
+<h2>Ödeme Ekranı</h2>
+
+<p>Sepet Toplamı: @Model.GrandTotal.ToString("C")</p>
+
+<form asp-action="Checkout" method="post">
+    <input type="hidden" asp-for="GrandTotal" />
+    <div>
+        <label>Ad Soyad:</label>
+        <input asp-for="FullName" required />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Adres:</label>
+        <textarea asp-for="Address" required></textarea>
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Telefon Numarası:</label>
+        <input asp-for="PhoneNumber" pattern="\d{11}" placeholder="05*********" required />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Kart Numarası:</label>
+        <input asp-for="CardNumber" pattern="\d{16}" placeholder="16 haneli kart numarası" required />
+        <span asp-validation-for="CardNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Son Kullanma Tarihi (MM/YY):</label>
+        <input asp-for="ExpiryDate" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" required />
+        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+    </div>
+    <div>
+        <label>CVV:</label>
+        <input asp-for="CVV" pattern="\d{3}" placeholder="***" required />
+        <span asp-validation-for="CVV" class="text-danger"></span>
+    </div>
+    <button type="submit">Ödeme Yap</button>
+</form>
+<script>
+    document.getElementById('ExpiryDate').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Sadece sayıları al
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4); // "/'yi ekle
+        }
+        e.target.value = value;
+    });
+</script>

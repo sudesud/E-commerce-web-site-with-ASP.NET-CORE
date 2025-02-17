@@ -1,0 +1,73 @@
+﻿@model Bitik.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Ürün Düzenle</h1>
+
+<h4>Ürün Bilgileri</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+
+            <!-- Ürün Adı -->
+            <div class="form-group">
+                <label for="ProductName" class="control-label">Ürün Adı</label>
+                <input asp-for="ProductName" class="form-control" id="ProductName" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+
+            <!-- Ürün Açıklaması -->
+            <div class="form-group">
+                <label for="Description" class="control-label">Ürün Açıklaması</label>
+                <textarea asp-for="Description" class="form-control" id="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <!-- Ürün Resmi -->
+            <div class="form-group">
+                <label for="ImageUrl" class="control-label">Ürün Resmi</label>
+                <input asp-for="ImageUpload" type="file" class="form-control" id="ImageUrl" />
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                <div class="mt-2">
+                    <img src="~/Urunler/@Model.ImageUrl" height="50px" width="50px" alt="Ürün Resmi" />
+                </div>
+            </div>
+
+            <!-- Ürün Fiyatı -->
+            <div class="form-group">
+                <label for="Price" class="control-label">Ürün Fiyatı</label>
+                <input asp-for="Price" class="form-control" id="Price" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <!-- Kategori -->
+            <div class="form-group">
+                <label for="CategoryId" class="control-label">Kategori</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.kateliste" id="CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <!-- Kaydet Butonu -->
+            <div class="form-group mt-3">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

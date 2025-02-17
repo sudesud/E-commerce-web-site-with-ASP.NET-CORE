@@ -1,0 +1,21 @@
+﻿@using Bitik.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a href="/MyAccount/Index" class="nav-item nav-link">@User.Identity.Name</a>
+    <a href="/Logout/Index" class="nav-item nav-link">Güvenli Çıkış</a>
+   
+
+}
+else
+{
+    <a href="@Url.Action("Index", "Login")">Giriş Yap</a>
+    
+   
+   
+}
+

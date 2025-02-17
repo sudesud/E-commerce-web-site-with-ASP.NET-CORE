@@ -1,0 +1,38 @@
+﻿@model List<Bitik.Models.FavoriteItem>
+
+@{
+    ViewData["Title"] = "Favorilerim";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/Favorites.css?v=@DateTime.Now.Ticks">
+<h1>Favorilerim</h1>
+<div class="favorites-container">
+    @if (Model.Count == 0)
+    {
+        <p>Favori ürününüz bulunmamaktadır.</p>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="favorite-item">
+                <img src="/Urunler/@item.Image" alt="Ürün Resmi">
+                <h3>@item.ProductName</h3>
+
+                <!-- Favorilerden çıkarma işlemi -->
+                <form method="post" action="@Url.Action("Remove", "Favorites")">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@item.ProductId" />
+                    <button type="submit">Favorilerden Kaldır</button>
+                </form>
+
+                <!-- Sepete ekleme işlemi -->
+                <form method="post" action="@Url.Action("Add", "Cart")">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@item.ProductId" />
+                    <button type="submit">Sepete Ekle</button>
+                </form>
+            </div>
+        }
+    }
+</div>

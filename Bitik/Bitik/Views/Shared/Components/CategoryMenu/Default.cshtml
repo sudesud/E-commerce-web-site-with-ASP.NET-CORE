@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Bitik.Models.Category>
+<link rel="stylesheet" href="~/css/General.css">
+
+<div class="dropdown-content">
+    @foreach (var category in Model)
+    {
+        <a href="@Url.Action("ProductsByCategory", "Category", new { id = category.CategoryId })">@category.CategoryName</a>
+    }
+</div>

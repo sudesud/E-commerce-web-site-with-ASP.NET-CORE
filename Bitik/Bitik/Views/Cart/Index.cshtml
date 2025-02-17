@@ -1,0 +1,54 @@
+﻿@model Bitik.Dto.CartViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Cart.Css">
+    <title>Sepetim</title>
+</head>
+<body>
+    <div class="cart-container">
+        <h1 class="cart-header">Sepetim</h1>
+        @foreach (var item in Model.CartItems)
+        {
+            <div id="cartItems">
+                <div class="cart-item">
+                    <img src="/Urunler/@item.Image" alt="Ürün Resmi">
+                    <h3>@item.ProductName</h3>
+                    <h4>@item.Price</h4>
+                    <div class="quantity-controls">
+                        <form method="post" action="@Url.Action("Decrease", "Cart")">
+                            <input type="hidden" name="id" value="@item.ProducutId" />
+                            <button type="submit">-</button>
+                        </form>
+                        <span>@item.Quantity</span>
+                        <form method="post" action="@Url.Action("Add", "Cart")">
+                            <input type="hidden" name="id" value="@item.ProducutId" />
+                            <button type="submit">+</button>
+                        </form>
+                    </div>
+                    <form method="post" action="@Url.Action("Remove", "Cart")">
+                        <input type="hidden" name="id" value="@item.ProducutId" />
+                        <button type="submit">Kaldır</button>
+                    </form>
+
+                   
+
+                </div>
+                
+            </div>
+        }
+        <h4 class="badge">@Model.GrandTotal.ToString("C")</h4>
+        <div class="cart-empty">
+            <p><a href="@Url.Action("Index", "Home")">alışverişe devam edin</a>.</p>
+        </div>
+        <a href="@Url.Action("Checkout", "Payment")" class="checkout-button" id="checkoutButton">Ödeme Yap</a>
+
+    </div>
+</body>
+</html>

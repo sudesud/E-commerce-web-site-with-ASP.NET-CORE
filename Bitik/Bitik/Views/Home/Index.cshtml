@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = "_HomeLayout";
+    <!-- Bu, layout sayfasını kullanır -->
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/General.css">
+    <title>Ana Sayfa</title>
+</head>
+<body>
+
+    <!-- Slider sadece bu sayfada olacak -->
+    <div class="hero">
+        <div class="info-box">
+            <div class="weather-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Hava Durumu" class="icon">
+                <div>
+                    <h2>@ViewBag.City</h2>
+                    <p>@ViewBag.Temperature°C</p>
+                    <p>@ViewBag.Description</p>
+                </div>
+            </div>
+            <div class="exchange-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/1611/1611179.png" alt="Döviz Kuru" class="icon">
+                <div>
+                    <h2>Döviz Kuru</h2>
+                    <p>USD/TRY: @ViewBag.UsdExchangeRate</p>
+                </div>
+            </div>
+        </div>
+        <div class="slider1">
+            <div class="slider1" id="slider1">
+                @foreach (var image in ViewBag.sliderImages)
+                {
+                    <img src="~/Images/@image.ImageUrl" alt="Slider Image">
+                }
+            </div>
+            
+        </div>
+
+
+
+
+    </div>
+    <!-- Popüler Ürünler ve diğer içerikler burada olacak -->
+    @await Component.InvokeAsync("TrendList") <!-- View Component ile popüler ürünleri görüntüle -->
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let slider1 = document.getElementById('slider1');
+            let images = slider1.getElementsByTagName('img');
+            let currentIndex = 0;
+
+            // İlk resmi aktif yap
+            images[currentIndex].classList.add('active');
+
+            setInterval(() => {
+                // Mevcut resmi gizle
+                images[currentIndex].classList.remove('active');
+
+                // Sonraki resmi göster
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }, 3000); // 3 saniye aralıklarla değişim
+        });
+
+    </script>
+</body>
+</html>

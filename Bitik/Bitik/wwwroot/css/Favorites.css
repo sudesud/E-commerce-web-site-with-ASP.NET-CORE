@@ -1,0 +1,76 @@
+/* Favoriler Sayfasý CSS */
+
+.favorites-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1rem;
+    justify-content: center;
+}
+
+.favorite-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .favorite-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .favorite-item img {
+        max-width: 100%;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+    }
+
+    .favorite-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .favorite-item form {
+        margin-top: 1rem;
+    }
+
+    .favorite-item button {
+        display: inline-block;
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+        .favorite-item button:hover {
+            transform: scale(1.05);
+        }
+
+    .favorite-item form:first-of-type button {
+        background: #ff4444;
+        color: white;
+    }
+
+        .favorite-item form:first-of-type button:hover {
+            background: #e63e3e;
+        }
+
+    .favorite-item form:last-of-type button {
+        background: #4CAF50;
+        color: white;
+    }
+
+        .favorite-item form:last-of-type button:hover {
+            background: #45a049;
+        }
+h1 {
+    text-align: center;
+}

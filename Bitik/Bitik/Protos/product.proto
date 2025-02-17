@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+service ProductSearch {
+    rpc SearchProducts (SearchRequest) returns (SearchResponse);
+}
+
+message SearchRequest {
+    string query = 1;
+}
+
+message SearchResponse {
+    repeated Product products = 1;
+}
+
+message Product {
+    int32 productId = 1;
+    string productName = 2;
+    string description = 3;
+    float price = 4;
+    int32 stock = 5;
+    int32 categoryId = 6;
+}

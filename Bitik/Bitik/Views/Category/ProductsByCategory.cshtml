@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Bitik.Models.Product>
+@{
+    Layout = "_HomeLayout";
+    <!-- Bu, layout sayfasını kullanır -->
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link rel="stylesheet" href="~/css/Catagories.css?v=@DateTime.Now.Ticks">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Ürünler</title>
+</head>
+<body>
+    <section>
+        <h2 class="section-title">Ürünler</h2>
+        <div class="categories">
+            <!-- Ürün 1 -->
+            @foreach (var Product in Model)
+            {
+                <div class="category" id="urun @Product.ProductId">
+                    <img src="~/Urunler/@Product.ImageUrl" alt="@Product.ProductName">
+                    <h3>@Product.ProductName</h3>
+                    <p>@Product.Description</p> <!-- Ürün açıklaması eklenebilir -->
+                    <p class="price">Fiyat: @Product.Price TL</p>
+                    <div class="buttons">
+                        <!-- Ürün detay sayfasına yönlendirme -->
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = Product.ProductId })" class="view-products">Ürün Detaylarını Gör</a>
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            <input type="hidden" name="productId" value="@Product.ProductId" />
+                            <a href="/Cart/Add/@Product.ProductId" class="add-to-cart">Sepete Ekle</a>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+    <script>
+        // "Sepete Ekle" butonuna tıklama olayı
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Sayfanın yeniden yüklenmesini engelle
+
+                // Ürün adı alınıyor
+                const productId = button.href.split('/').pop(); // URL'den ürün ID'sini alıyoruz
+                const productName = button.closest('.category').querySelector('h3').textContent; // Ürün adını alıyoruz
+
+                // Türkçe karakterler ile alert mesajı gösteriliyor
+                alert(`${productName} sepete eklendi!`);
+
+                // Sepete ekleme işlemi simüle ediliyor (form gönderme işlemi)
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/Cart/Add/' + productId;
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+

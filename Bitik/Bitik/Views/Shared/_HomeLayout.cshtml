@@ -1,0 +1,51 @@
+﻿@Html.AntiForgeryToken()
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/General.css">
+
+    <title>Bİ✓</title>
+</head>
+<body>
+    <header>
+        <div class="site-title">
+            <img src="~/Images/BİTİK.png" width="75" height="75" alt="Logo">
+        </div>
+      
+        <div class="auth-buttons">
+            <partial name="_LoginPartial" />
+            @await Component.InvokeAsync("CartSumList")
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <a href="~/Home/Index">Ana Sayfa</a>
+            <div class="dropdown">
+                <a href="#">Kategoriler</a>
+                @await Component.InvokeAsync("CategoryMenu")
+            </div>
+            <a href="~/Home/About">Hakkımızda</a>
+            <a href="~/Home/CustomerService">Müşteri Hizmetleri</a>
+        </div>
+
+
+
+
+    </nav>
+
+    <!-- Slider burada olmayacak -->
+    @RenderBody() <!-- Bu kısım, sayfa içeriğinin dinamik olarak yükleneceği alandır -->
+
+    <footer>
+        <p>&copy; 2024 E-Ticaret Sitesi. Tüm hakları saklıdır.</p>
+    </footer>
+</body>
+</html>

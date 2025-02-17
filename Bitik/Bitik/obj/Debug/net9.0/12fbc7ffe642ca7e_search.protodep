@@ -1,0 +1,2 @@
+obj\Debug\net9.0\Protos/Search.cs \
+obj\Debug\net9.0\Protos/SearchGrpc.cs: Protos/search.proto
